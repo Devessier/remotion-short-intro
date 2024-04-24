@@ -1,5 +1,6 @@
-import {Composition} from 'remotion';
-import {MyComposition, myCompSchema} from './Composition';
+import {Composition, staticFile} from 'remotion';
+import {MyComposition, schema} from './Composition';
+import {getVideoMetadata} from '@remotion/media-utils';
 import './style.css';
 
 export const RemotionRoot: React.FC = () => {
@@ -8,17 +9,34 @@ export const RemotionRoot: React.FC = () => {
 			<Composition
 				id="MyComp"
 				component={MyComposition}
-				durationInFrames={240}
-				fps={30}
-				width={1280}
-				height={720}
-				schema={myCompSchema}
+				schema={schema}
 				defaultProps={{
-					titleText: 'Welcome to Remotion with Tailwind CSS',
-					titleColor: '#000000',
-					logoColor: '#00bfff',
+					shortDurationInFrames: 0,
+				}}
+				calculateMetadata={async () => {
+					const fps = 30;
+
+					const shortData = await getVideoMetadata(staticFile('/short.mp4'));
+					const shortDurationInFrames = secondsToFrames(
+						shortData.durationInSeconds,
+						fps
+					);
+
+					return {
+						durationInFrames: shortDurationInFrames,
+						fps,
+						width: shortData.width,
+						height: shortData.height,
+						props: {
+							shortDurationInFrames,
+						},
+					};
 				}}
 			/>
 		</>
 	);
 };
+
+function secondsToFrames(float: number, fps: number) {
+	return Math.floor(float * fps);
+}
