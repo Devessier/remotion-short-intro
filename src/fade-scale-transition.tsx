@@ -18,6 +18,8 @@ const FadeScaleTransition: React.FC<
 	if (isEntering === true) {
 		return (
 			<AbsoluteFill style={{opacity: presentationProgress}}>
+				<AbsoluteFill className="bg-gray-950" />
+
 				<AbsoluteFill
 					style={{
 						transform: `scale(${interpolate(
