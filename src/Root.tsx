@@ -1,4 +1,5 @@
-import {Composition} from 'remotion';
+import {Composition, staticFile} from 'remotion';
+import {getVideoMetadata} from '@remotion/media-utils';
 import {MyComposition, schema} from './Composition';
 import './style.css';
 
@@ -8,13 +9,36 @@ export const RemotionRoot: React.FC = () => {
 			<Composition
 				id="MyComp"
 				component={MyComposition}
-				durationInFrames={240}
-				fps={30}
-				width={1280}
-				height={720}
 				schema={schema}
-				defaultProps={{}}
+				defaultProps={{
+					shortDurationInFrames: 0,
+				}}
+				calculateMetadata={async () => {
+					const fps = 30;
+
+					const shortMetadata = await getVideoMetadata(
+						staticFile('/short.mp4')
+					);
+					const shortDurationInFrames = secondsToFrames(
+						shortMetadata.durationInSeconds,
+						fps
+					);
+
+					return {
+						fps,
+						width: shortMetadata.width,
+						height: shortMetadata.height,
+						durationInFrames: shortDurationInFrames,
+						props: {
+							shortDurationInFrames
+						}
+					};
+				}}
 			/>
 		</>
 	);
 };
+
+function secondsToFrames(float: number, fps: number) {
+	return Math.floor(float * fps);
+}

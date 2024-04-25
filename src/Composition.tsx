@@ -3,9 +3,13 @@ import {AbsoluteFill, Easing, Img, OffthreadVideo, staticFile} from 'remotion';
 import {z} from 'zod';
 import {fadeScale} from './fade-scale-transition';
 
-export const schema = z.object({});
+export const schema = z.object({
+	shortDurationInFrames: z.number(),
+});
 
-export const MyComposition: React.FC<z.infer<typeof schema>> = () => {
+export const MyComposition: React.FC<z.infer<typeof schema>> = ({
+	shortDurationInFrames,
+}) => {
 	return (
 		<AbsoluteFill className="bg-gray-950">
 			<TransitionSeries>
@@ -21,7 +25,7 @@ export const MyComposition: React.FC<z.infer<typeof schema>> = () => {
 					})}
 				/>
 
-				<TransitionSeries.Sequence durationInFrames={120}>
+				<TransitionSeries.Sequence durationInFrames={shortDurationInFrames}>
 					<OffthreadVideo src={staticFile('/short.mp4')} />
 				</TransitionSeries.Sequence>
 			</TransitionSeries>
