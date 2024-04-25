@@ -36,8 +36,10 @@ const FadeScaleTransition: React.FC<
 	}
 
 	return (
-		<AbsoluteFill>
-			<AbsoluteFill>{children}</AbsoluteFill>
+		<AbsoluteFill
+			style={{opacity: interpolate(presentationProgress, [0, 0.8], [1, 0])}}
+		>
+			{children}
 		</AbsoluteFill>
 	);
 };
