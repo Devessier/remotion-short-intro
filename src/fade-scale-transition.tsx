@@ -37,7 +37,11 @@ const FadeScaleTransition: React.FC<
 
 	return (
 		<AbsoluteFill
-			style={{opacity: interpolate(presentationProgress, [0, 0.8], [1, 0])}}
+			style={{
+				opacity: interpolate(presentationProgress, [0, 0.8], [1, 0], {
+					extrapolateRight: 'clamp',
+				}),
+			}}
 		>
 			{children}
 		</AbsoluteFill>
