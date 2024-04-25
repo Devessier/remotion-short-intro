@@ -1,5 +1,5 @@
 import {TransitionSeries, linearTiming} from '@remotion/transitions';
-import {AbsoluteFill, Img, OffthreadVideo, staticFile} from 'remotion';
+import {AbsoluteFill, Easing, Img, OffthreadVideo, staticFile} from 'remotion';
 import {z} from 'zod';
 import {fadeScale} from './fade-scale-transition';
 
@@ -17,6 +17,7 @@ export const MyComposition: React.FC<z.infer<typeof schema>> = () => {
 					presentation={fadeScale({})}
 					timing={linearTiming({
 						durationInFrames: 10,
+						easing: Easing.in(Easing.ease),
 					})}
 				/>
 
