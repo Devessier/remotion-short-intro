@@ -1,6 +1,6 @@
 import type {TransitionPresentation} from '@remotion/transitions';
 import type {TransitionPresentationComponentProps} from '@remotion/transitions';
-import {AbsoluteFill} from 'remotion';
+import {AbsoluteFill, interpolate} from 'remotion';
 
 type FadeScaleTransitionProps = {};
 
@@ -18,7 +18,17 @@ const FadeScaleTransition: React.FC<
 	if (isEntering === true) {
 		return (
 			<AbsoluteFill style={{opacity: presentationProgress}}>
-				<AbsoluteFill>{children}</AbsoluteFill>
+				<AbsoluteFill
+					style={{
+						transform: `scale(${interpolate(
+							presentationProgress,
+							[0, 1],
+							[0.8, 1]
+						)})`,
+					}}
+				>
+					{children}
+				</AbsoluteFill>
 			</AbsoluteFill>
 		);
 	}
