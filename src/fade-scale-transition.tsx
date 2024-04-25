@@ -13,6 +13,16 @@ export const fadeScale = (
 const FadeScaleTransition: React.FC<
 	TransitionPresentationComponentProps<FadeScaleTransitionProps>
 > = ({children, presentationDirection, presentationProgress, passedProps}) => {
+	const isEntering = presentationDirection === 'entering';
+
+	if (isEntering === true) {
+		return (
+			<AbsoluteFill style={{opacity: presentationProgress}}>
+				<AbsoluteFill>{children}</AbsoluteFill>
+			</AbsoluteFill>
+		);
+	}
+
 	return (
 		<AbsoluteFill>
 			<AbsoluteFill>{children}</AbsoluteFill>
