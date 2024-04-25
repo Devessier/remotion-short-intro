@@ -41,6 +41,12 @@ const FadeScaleTransition: React.FC<
 				opacity: interpolate(presentationProgress, [0, 0.8], [1, 0], {
 					extrapolateRight: 'clamp',
 				}),
+				transform: `scale(${interpolate(
+					presentationProgress,
+					[0, 0.8],
+					[1, 1.4],
+					{extrapolateRight: 'clamp'}
+				)})`,
 			}}
 		>
 			{children}
