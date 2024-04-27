@@ -23,7 +23,7 @@ export const RemotionRoot: React.FC = () => {
 					);
 
 					return {
-						durationInFrames: shortDurationInFrames,
+						durationInFrames: shortDurationInFrames + 10,
 						fps,
 						width: shortData.width,
 						height: shortData.height,
