@@ -1,5 +1,12 @@
 import {TransitionSeries, linearTiming} from '@remotion/transitions';
-import {AbsoluteFill, Easing, Img, OffthreadVideo, staticFile} from 'remotion';
+import {
+	AbsoluteFill,
+	Easing,
+	Freeze,
+	Img,
+	OffthreadVideo,
+	staticFile,
+} from 'remotion';
 import {z} from 'zod';
 import {fadeScale} from './fade-scale-transition';
 
@@ -25,8 +32,16 @@ export const MyComposition: React.FC<z.infer<typeof schema>> = ({
 					})}
 				/>
 
+				<TransitionSeries.Sequence durationInFrames={10}>
+					<Freeze frame={0}>
+						<OffthreadVideo
+							src={staticFile('/short starting immediately.mp4')}
+						/>
+					</Freeze>
+				</TransitionSeries.Sequence>
+
 				<TransitionSeries.Sequence durationInFrames={shortDurationInFrames}>
-					<OffthreadVideo src={staticFile('/short.mp4')} />
+					<OffthreadVideo src={staticFile('/short starting immediately.mp4')} />
 				</TransitionSeries.Sequence>
 			</TransitionSeries>
 		</AbsoluteFill>

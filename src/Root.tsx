@@ -17,7 +17,7 @@ export const RemotionRoot: React.FC = () => {
 					const fps = 30;
 
 					const shortMetadata = await getVideoMetadata(
-						staticFile('/short.mp4')
+						staticFile('/short starting immediately.mp4')
 					);
 					const shortDurationInFrames = secondsToFrames(
 						shortMetadata.durationInSeconds,
@@ -28,10 +28,10 @@ export const RemotionRoot: React.FC = () => {
 						fps,
 						width: shortMetadata.width,
 						height: shortMetadata.height,
-						durationInFrames: shortDurationInFrames,
+						durationInFrames: shortDurationInFrames + 10,
 						props: {
-							shortDurationInFrames
-						}
+							shortDurationInFrames,
+						},
 					};
 				}}
 			/>
